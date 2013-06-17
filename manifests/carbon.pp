@@ -11,8 +11,18 @@
 # * Update documentation
 #
 class graphite::carbon {
+  
+  anchor { '::graphite::carbon::begin':
+    before => Class['::graphite::carbon::package'],
+  }
 
-  include graphite::carbon::package
+  anchor { '::graphite::carbon::end':
+    require => Class['::graphite::carbon::package'],
+  }
+
+  class{'::graphite::carbon::package':
+  
+  }
 
 }
 
