@@ -16,6 +16,7 @@ class graphite::web::config (
   $conf_dir            = undef,
   $storage_dir         = undef,
   $content_dir         = undef,
+  $database_file       = undef,
   $dashboard_conf      = undef,
   $graphtemplates_conf = undef,
   $whisper_dir         = undef,
@@ -31,7 +32,6 @@ class graphite::web::config (
   $ldap_user_query     = undef,
   $memcache_hosts      = undef) {
 
-  $db_file = '/usr/share/hubspot/graphite/storage/graphite.db'
   exec { 'graphite_syncdb':
     path        => ['/bin', '/usr/bin'],
     command     => "bash -c 'cd \$(python -c \"from distutils.sysconfig import get_python_lib; print(get_python_lib())\")/graphite && python ./manage.py syncdb --noinput'",
@@ -40,7 +40,7 @@ class graphite::web::config (
   } ->
   file { 'graphite.db':
     ensure    => file,
-    path      => $db_file,
+    path      => $database_file,
     owner     => 'apache',
     group     => 'apache',
     mode      => '0644',
@@ -63,7 +63,7 @@ class graphite::web::config (
     path        => ['/bin', '/usr/bin'],
     command     => "bash -c 'cd \$(python -c \"from distutils.sysconfig import get_python_lib; print(get_python_lib())\")/graphite && python ./manage.py syncdb --noinput'",
     require     => File['local_settings.py'],
-    unless      => "test -s ${db_file}"
+    unless      => "test -s ${database_file}"
   }
 
 }

@@ -15,6 +15,7 @@ class graphite::params (
   $conf_dir            = undef,
   $storage_dir         = undef,
   $content_dir         = undef,
+  $database_file       = undef,
   $dashboard_conf      = undef,
   $graphtemplates_conf = undef,
   $whisper_dir         = undef,
