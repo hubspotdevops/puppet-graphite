@@ -7,4 +7,4 @@ summary 'This module installs and configures graphite'
 project_page ''
 
 ## Add dependencies, if any:
-dependency 'ripienaar/concat', '>= 0.1.0'
+dependency 'puppetlabs/concat', '>= 1.0.0'
